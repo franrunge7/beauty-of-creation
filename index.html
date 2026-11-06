@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#19352d">
+  <meta name="description" content="A daily moment of wonder about the beauty of creation.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>The Beauty of Creation</title>
+  <style>
+    :root{color-scheme:light;--ink:#20372f;--muted:#66766d;--paper:#f5f3e9;--card:#fffef9;--line:#e6e4d9;--gold:#c49b58}
+    *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,"Times New Roman",serif;min-height:100vh}
+    .wrap{max-width:680px;margin:auto;padding:22px 18px 48px}
+    header{display:flex;justify-content:space-between;align-items:center;margin:4px 0 22px;font-family:system-ui,sans-serif}
+    .brand{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+    .day{font-size:12px;color:var(--muted)}
+    .hero{background:linear-gradient(145deg,#18372f,#355b49);color:#fffdf4;border-radius:25px;padding:28px 24px 30px;position:relative;overflow:hidden;box-shadow:0 16px 40px #1d39251c}
+    .hero:before{content:"";position:absolute;width:250px;height:250px;border:1px solid #ffffff20;border-radius:50%;right:-90px;top:-120px;box-shadow:0 0 0 24px #ffffff0b,0 0 0 50px #ffffff08}
+    .eyebrow{font:700 10px system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#d8c59b}
+    h1{font-weight:400;font-size:clamp(35px,8vw,54px);line-height:1.04;margin:15px 0 12px;max-width:520px}
+    .sub{font-size:17px;line-height:1.55;color:#e5e8dc;max-width:480px;margin:0}
+    .rule{height:1px;background:#ffffff35;margin:25px 0 15px}
+    .counter{font:12px system-ui,sans-serif;color:#e2d5b8;letter-spacing:.04em}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    button{border:0;border-radius:999px;padding:12px 17px;font:600 13px system-ui,sans-serif;cursor:pointer}
+    .primary{background:#e8d8b4;color:#263d32}.secondary{background:#ffffff18;color:#fff;border:1px solid #ffffff45}
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:21px;margin-top:17px}
+    h2{font-size:21px;font-weight:400;margin:0 0 8px}
+    .hint{font:13px/1.5 system-ui,sans-serif;color:var(--muted);margin:0}
+    .settings{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;margin-top:17px}
+    input[type=time]{font:14px system-ui,sans-serif;color:var(--ink);background:#f8f7f0;border:1px solid var(--line);border-radius:10px;padding:9px}
+    .save{background:var(--ink);color:white;margin-top:14px}
+    .status{font:12px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:10px}
+    .footer{text-align:center;font:12px system-ui,sans-serif;color:var(--muted);margin:24px 0}
+    @media(min-width:560px){.wrap{padding-top:34px}.hero{padding:38px 38px 34px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header><div class="brand">The Beauty of Creation</div><div class="day" id="date"></div></header>
+  <section class="hero" aria-live="polite">
+    <div class="eyebrow">A daily moment of wonder</div>
+    <h1 id="wonder">The quiet brilliance of a starry sky.</h1>
+    <p class="sub" id="reflection">Countless stars, each part of a universe still full of mystery.</p>
+    <div class="rule"></div>
+    <div class="counter" id="counter">A moment of wonder · 1 of 1,000,000,000 possibilities</div>
+    <div class="actions">
+      <button class="primary" id="another">Another wonder</button>
+      <button class="secondary" id="favorite">♡ Save this</button>
+    </div>
+  </section>
+  <section class="panel">
+    <h2>A small reminder, every day.</h2>
+    <p class="hint">Choose a time to be reminded to pause and notice something beautiful in the world.</p>
+    <div class="settings">
+      <label for="reminder">Daily reminder time</label>
+      <input type="time" id="reminder" value="08:00">
+    </div>
+    <button class="save" id="enable">Enable reminders</button>
+    <p class="status" id="status">Notifications require permission. On iPhone, add this website to your Home Screen first. A web app cannot guarantee a notification at an exact time unless a push-notification service is configured.</p>
+  </section>
+  <section class="panel">
+    <h2>Your saved wonders</h2>
+    <p class="hint" id="saved">No saved wonders yet. Save one that you want to revisit.</p>
+  </section>
+  <p class="footer">One world. Countless reasons to wonder.</p>
+</main>
+<script>
+const subjects = [
+  ["the first light of dawn","The world slowly brightens, and another day begins."],
+  ["the intricate veins of a leaf","A quiet network carries life through something small enough to hold."],
+  ["a whale singing beneath the ocean","A voice travels through the deep in a world we are only beginning to understand."],
+  ["the patience of an ancient tree","Year by year, it reaches upward and makes a home for other life."],
+  ["the geometry of a snowflake","Water takes on an astonishing variety of delicate forms."],
+  ["the warmth of sunlight on your face","A star ninety-three million miles away makes an ordinary moment feel extraordinary."],
+  ["bees moving from flower to flower","Small acts of gathering help sustain whole ecosystems."],
+  ["the colours of a sunset","The atmosphere turns passing sunlight into a changing display."],
+  ["the rhythm of ocean tides","The moon and Earth share a steady gravitational dance."],
+  ["a bird taking flight","Feathers, muscle and instinct combine in a moment of freedom."],
+  ["the hidden life in a handful of soil","Countless organisms quietly help make the ground fertile."],
+  ["the sound of rain on leaves","Water returns to the earth, feeding roots, rivers and forests."],
+  ["the human capacity for kindness","A thoughtful act can change the course of someone else's day."],
+  ["the complexity of a single cell","A microscopic world carries out the work that makes life possible."],
+  ["the Milky Way on a clear night","Our solar system is one small part of a galaxy filled with stars."]
+];
+const forms = [
+  ["the quiet wonder of","the extraordinary detail in","the unexpected beauty of","the delicate balance of","the living poetry of"],
+  ["a fern unfurling after rain","a river winding through a valley","a butterfly opening its wings","cloud shadows crossing a field","a seed beginning to grow","a moonlit coastline","a flock turning together in the sky","a garden waking in spring","a coral reef alive with colour","a mountain reflected in still water","a child's unguarded laughter","a friend remembering a small detail","the scent of earth after rain","the first stars appearing at dusk","a drop of dew catching sunlight","the patient work of pollination","the patterns inside a seashell","the changing colours of autumn","the pulse of a living heart","the generosity of a shared meal"],
+  ["a reminder that life is full of intricate relationships.","evidence of beauty that asks for nothing in return.","one more reason to look closely at the world.","a small marvel in an immense and varied creation.","a moment worth noticing before it passes."]
+];
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function seeded(seed){let x=seed||1;return()=>{x+=0x6D2B79F5;let t=x;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function dailyIndex(){return Math.floor(Date.now()/86400000)}
+function makeWonder(seed){
+  if(seed < subjects.length) return subjects[seed];
+  const r=seeded(seed), pick=a=>a[Math.floor(r()*a.length)];
+  return [pick(forms[0])+" "+pick(forms[1])+".",pick(forms[2])];
+}
+let currentSeed=dailyIndex(), current=makeWonder(currentSeed);
+const $=id=>document.getElementById(id);
+function render(){
+  $("wonder").textContent=current[0].charAt(0).toUpperCase()+current[0].slice(1);
+  $("reflection").textContent=current[1];
+  $("counter").textContent="A moment of wonder · "+(currentSeed+1).toLocaleString()+" of 1,000,000,000 possibilities";
+}
+$("date").textContent=new Intl.DateTimeFormat(undefined,{weekday:"short",month:"short",day:"numeric"}).format(new Date());
+render();
+$("another").onclick=()=>{currentSeed=Math.floor(Math.random()*1000000000);current=makeWonder(currentSeed);render()};
+function getSaved(){try{return JSON.parse(localStorage.getItem("savedWonders")||"[]")}catch{return []}}
+function showSaved(){const a=getSaved();$("saved").textContent=a.length?a.map(x=>"• "+x).join("\n"):"No saved wonders yet. Save one that you want to revisit.";$("saved").style.whiteSpace="pre-line"}
+$("favorite").onclick=()=>{const a=getSaved();const item=current[0];if(!a.includes(item))a.unshift(item);localStorage.setItem("savedWonders",JSON.stringify(a.slice(0,100)));showSaved();$("favorite").textContent="♥ Saved"};
+showSaved();
+$("enable").onclick=async()=>{
+  if(!("Notification" in window)){ $("status").textContent="This browser does not support web notifications.";return}
+  if(!window.isSecureContext){$("status").textContent="Notifications need a secure HTTPS website. Deploy this app to an HTTPS host first.";return}
+  const permission=await Notification.requestPermission();
+  if(permission!=="granted"){$("status").textContent="Notifications are not enabled. You can change this in your browser settings.";return}
+  localStorage.setItem("reminderTime",$("reminder").value);
+  $("status").textContent="Notifications are allowed. Your chosen time is "+$("reminder").value+". Reliable daily delivery while the app is closed needs a push service; this starter app saves your preference.";
+};
+$("reminder").value=localStorage.getItem("reminderTime")||"08:00";
+if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script>
+</body>
+</html>
