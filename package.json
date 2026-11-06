@@ -1,0 +1,17 @@
+{
+
+  "name": "beauty-of-creation",
+
+  "version": "1.1.0",
+
+  "private": true,
+
+  "dependencies": {
+
+    "@netlify/blobs": "^9.0.0",
+
+    "web-push": "^3.6.7"
+
+  }
+
+}
